@@ -31,7 +31,8 @@ def perfom_checkout(request: CheckoutRequest):
     
     try:
         #5. A API (Controller) pede à Fábrica a estratégia 
-        strategy = factory.get_strategy(request.payment_method)
+        # <--- CORRIGIDO AQUI (era request.payment_method)
+        strategy = factory.get_strategy(request.method) 
         
         #6. A API (O Controller) cria o Contexto com a estratégia escolhida
         context = PaymentContext(strategy)
