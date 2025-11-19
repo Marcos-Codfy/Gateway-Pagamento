@@ -1,18 +1,20 @@
-from strategies import IPaymentStrategy, PixStrategy, CreditCardStategy, BoletoStrategy
+from src.core.interfaces import IpaymentStrategy
+from src.adapters.strategies import PIxStrategy, CreditCardStrategy, BoletoStrategy
 
-class PaymantStrategyFactory:
+class PaymentStrategyFactory:
     """
-    A Fábrica. Sua única responsabilidade é saber
-    qual classe concreta (qual estratégia) criar.
+    Factory Method: Responsável por criar a instância correta
+    da estratégia baseada em uma string (ex: 'pix')
     """
     
-    def get_strategy(self, method: str) -> IPaymentStrategy:
-        if method == "pix":
-            return PixStrategy()
-        elif method == "credit_card":
-            return CreditCardStategy()
-        elif method == "boleto":
+    @staticmethod
+    def get_strategy(method: str) -> IpaymentStrategy:
+        if method == 'pix':
+            return PIxStrategy()
+        elif method == 'credit_card':
+            return CreditCardStrategy()
+        elif method == 'boleto':
             return BoletoStrategy()
         
-        #Se um método desconhecido for solicitado, lançamos um erro.
-        raise ValueError(f"Método de pagamento desconhecido: {method} não suportado.") 
+        #Lança erro se o método não existir
+        raise ValueError(f"Payment method '{method}' is not supported.")
