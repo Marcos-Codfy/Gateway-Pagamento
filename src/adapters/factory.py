@@ -1,20 +1,20 @@
 from src.core.interfaces import IpaymentStrategy
-from src.adapters.strategies import PIxStrategy, CreditCardStrategy, BoletoStrategy
+from src.adapters.strategies import PixStrategy, CreditCardStrategy, BoletoStrategy
 
 class PaymentStrategyFactory:
     """
-    Factory Method: Responsável por criar a instância correta
-    da estratégia baseada em uma string (ex: 'pix')
+    Factory Method: Responsible for creating the correct strategy instance
+    based on a string (e.g., 'pix').
     """
     
     @staticmethod
     def get_strategy(method: str) -> IpaymentStrategy:
         if method == 'pix':
-            return PIxStrategy()
+            return PixStrategy()
         elif method == 'credit_card':
             return CreditCardStrategy()
         elif method == 'boleto':
             return BoletoStrategy()
         
-        #Lança erro se o método não existir
+        # Raises error if method does not exist
         raise ValueError(f"Payment method '{method}' is not supported.")
